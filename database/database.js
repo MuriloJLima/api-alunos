@@ -8,8 +8,8 @@ async function connection() {
 
   if (singleton) return singleton
 
-  const uri = process.env.MONGO_URI; // Carregando o URI do .env
-  const dbName = process.env.MONGO_DB_NAME; // Nome do banco de dados
+  const uri = "mongodb+srv://Karate_dojo:ZUK2rh3n79MHUPhM@dbkarate.tygkh.mongodb.net/?retryWrites=true&w=majority&appName=dbKarate"
+  const dbName = "dbDojo"; // Nome do banco de dados
 
   if (!uri || !dbName) {
     throw new Error("Variáveis de ambiente MONGO_URI ou MONGO_DB_NAME não definidas.");
