@@ -2,6 +2,7 @@
 const express = require('express')
 const cors = require('cors')
 
+
 //importa as rotas
 const routesAlunos = require('./route/routesAlunos');
 
@@ -11,13 +12,15 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 app.use(cors())
 
+app.use('/uploads', express.static('uploads'));
+
 
 //gerenciador de rotas para express
 const router = express.Router();
 
 //rota de teste
 router.get('/', (req, res)=>{
-    res.send('sistema karete');
+    res.send('sistema Alcateia Dojo');
 })
 
 //ativando a rota
@@ -25,6 +28,7 @@ app.use('/', router);
 
 //ativando a rota
 app.use('/', routesAlunos);
+
 
 //declaração da porta
 const PORT = process.env.PORT || 3001;
