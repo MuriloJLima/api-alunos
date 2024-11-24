@@ -1,18 +1,25 @@
 const multer = require('multer');
-const path = require('path');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-// Configuração do armazenamento
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const filename = `${Date.now()}${ext}`;
-    cb(null, filename);
-  }
+// Configuração do Cloudinary
+cloudinary.config({
+  cloud_name: "drkrlxqea", // Variáveis de ambiente recomendadas
+  api_key: "528781286888297",
+  api_secret: "R9WoRYZsk4rA45MxVysjeBdIK64",
 });
 
+// Configuração do armazenamento no Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'uploads', // Pasta onde os arquivos serão armazenados no Cloudinary
+    format: async (req, file) => 'png', // Escolha do formato (opcional)
+    public_id: (req, file) => `${Date.now()}-${file.originalname}`, // Nome do arquivo
+  },
+});
+
+// Configuração do Multer
 const upload = multer({ storage });
 
 module.exports = upload;
